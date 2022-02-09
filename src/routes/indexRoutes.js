@@ -1,7 +1,7 @@
 const ip = require('./ip')
-const infos = require('./infos')
+const fingerprint = require('../fingerPrint/routes')
 
 module.exports = {
 	ip,
-	infos
+	fingerprint
 }

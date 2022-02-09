@@ -25,14 +25,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors(({
 	origin: ["http://localhost:3000"]
 })))
-app.use('/ip', routes.ip)
-app.use('/infos',routes.infos)
 
-app.use((req,res,next) => {
-	// res.header("Access-Control-Allow-Origin", "http://localhost:3000")
-	res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
-	next()
-})
+app.use('/ip', routes.ip)
+app.use('/fingerprint', routes.fingerprint)
+
+// app.use((req,res,next) => {
+// 	// res.header("Access-Control-Allow-Origin", "http://localhost:3000")
+// 	res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
+// 	next()
+// })
 
 app.get('/', (req,res) => {
 	console.log(`requested url :${req.url} \n request headers host: ${req.headers.host}`)
