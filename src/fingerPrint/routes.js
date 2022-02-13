@@ -5,5 +5,6 @@ const router = express.Router()
 
 router.get('/', fingerprintService.getLastVisits)
 router.post('/', fingerprintService.storeFingerprint)
+router.delete('/', fingerprintService.deleteEntries)
 
 module.exports = router

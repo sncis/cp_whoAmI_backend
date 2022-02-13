@@ -5,6 +5,8 @@ const fs = require('fs')
 const https = require('https')
 const cors = require('cors')
 
+const { errorLogger, errorResponder} = require("./middleware")
+
 
 const privateKey  = fs.readFileSync('/Users/sitancisse/Desktop/CODE/Thesis/CP/cert/key.pem', 'utf8');
 const privateCert  = fs.readFileSync('/Users/sitancisse/Desktop/CODE/Thesis/CP/cert/cert.pem', 'utf8');
@@ -28,6 +30,10 @@ app.use(cors(({
 
 app.use('/ip', routes.ip)
 app.use('/fingerprint', routes.fingerprint)
+app.use('/test', routes.test)
+
+app.use(errorLogger)
+app.use(errorResponder)
 
 // app.use((req,res,next) => {
 // 	// res.header("Access-Control-Allow-Origin", "http://localhost:3000")
@@ -48,6 +54,7 @@ app.get('/', (req,res) => {
 // }
 
 // db.connectToDB(errorHandling)
+
 
 app.listen(PORT, () => {
 	console.log(`HTTP server started at port: ${PORT}`)
