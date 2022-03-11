@@ -1,11 +1,11 @@
-const routes = require('./routes/indexRoutes')
-
 const express = require('express');
 const fs = require('fs')
 const https = require('https')
 const cors = require('cors')
 
-const { errorLogger, errorResponder} = require("./middleware")
+
+const routes = require('./routes/indexRoutes')
+const { errorLogger, errorResponder, jsonValidationError} = require("./middleware")
 
 
 const privateKey  = fs.readFileSync('/Users/sitancisse/Desktop/CODE/Thesis/CP/cert/key.pem', 'utf8');
@@ -18,33 +18,46 @@ const credentials = {key: privateKey, cert:privateCert}
 const app = express()
 const httpsServer = https.createServer(credentials,app)
 
-const PORT= 5000
+
+const PORT = 5000
 const HTTPS_PORT= 5443
 
 
-app.use(express.json())
+app.use(express.json({limit:'800b',type: 'application/json'}))
 app.use(express.urlencoded({ extended: true }));
+
+
+
 app.use(cors(({
-	origin: ["http://localhost:3000"]
+	origin: ["http://localhost:3000"],
+	credentials: true,
+	exposeHeaders:['Content-Length', 'X-Frame-Options', 'X-XSS-Protection','X-Content-Type-Options']
 })))
 
 app.use('/ip', routes.ip)
-app.use('/fingerprint', routes.fingerprint)
-app.use('/test', routes.test)
+app.use('/fingerprint',routes.fingerprint)
 
+app.use(jsonValidationError)
 app.use(errorLogger)
 app.use(errorResponder)
 
-// app.use((req,res,next) => {
-// 	// res.header("Access-Control-Allow-Origin", "http://localhost:3000")
-// 	res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
-// 	next()
-// })
-
-app.get('/', (req,res) => {
-	console.log(`requested url :${req.url} \n request headers host: ${req.headers.host}`)
-	res.send('<h1>Hello from backend </h1>')
+app.use((req,res,next) => {
+	// res.header("Access-Control-Allow-Origin", "http://localhost:3000")
+	res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
+	// res.header('Strict-Transport-Security', 'max-age=15552000')
+	// res.header('Content-Security-Policy',	"default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'")
+	// res.header("X-Frame-Options", "deny")
+	// res.header("X-XSS-Protection", "1;mode=block")
+	// res.header("X-Content-Type-Options", "nosniff")
+	// res.header("Feature-Policy", "camera 'none'; autoplay 'none'; fullscreen 'self'; geolocation 'self'; gyroscope 'self';  magnetometer 'self'; microphone 'none'; midi 'none'; payment 'none'; picture-in-picture 'none'; publickey-credentials-get 'none'; sync-xhr 'self'; usb 'none'; xr-spatial-tracking 'none'",
+	// )
+	next()
 })
+
+// app.get('/', (req,res) => {
+// 	console.log(`requested url :${req.url} \n request headers host: ${req.headers.host}`)
+// 	res.send('<h1>Hello from backend </h1>')
+// })
 
 // const errorHandling = err => {
 // 	if(err){

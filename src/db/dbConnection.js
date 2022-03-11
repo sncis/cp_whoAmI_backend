@@ -14,7 +14,13 @@ module.exports = {
 		return database.collection('testCollection')
 	},
 
+	getDB : (db) => {
+		const client = getClient()
+		return client.db(db)
+	},
+
 	closeConnection: (dbClient) => {
 		dbClient.close()
 	}
 }
+

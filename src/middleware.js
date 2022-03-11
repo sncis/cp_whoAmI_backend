@@ -1,17 +1,43 @@
-const errorLogger = (err, req,res,next) => {
+const { ValidationError } = require("express-json-validator-middleware");
+
+const errorLogger = (error, req,res,next) => {
 	console.log("********* Error Logger **********")
-	console.error(err)
-	next(err)
+	console.error(error)
+	next(error)
 }
 
-const errorResponder = (err, req, res, next) => {
+const errorResponder = (error, req, res, next) => {
 	res.header('Content-Type', "application/json")
-	console.log(err)
-	res.status(err.statusCode || 500).send(err.message)
-
+	console.log(error)
+	res.status(error.statusCode || 500).send(error.message)
+	next(error)
 }
+
+const jsonValidationError = (error,req,res,next) => {
+	// console.log(req.body)
+	
+	if(res.headerSent){
+		return next(error)
+	}
+	const isValidationError = error instanceof ValidationError;
+	if (!isValidationError) {
+		return next(error);
+	}
+
+	console.log("******* json validation error *********")
+	console.log(error.validationErrors)
+
+	// res.header('Content-Type', "application/json")
+
+	res.status(400).json({errors: error.validationErrors});
+
+	next()
+}
+
+
 
 module.exports = {
 	errorLogger,
-	errorResponder
+	errorResponder,
+	jsonValidationError
 }
