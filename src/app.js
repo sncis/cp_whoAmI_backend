@@ -2,10 +2,12 @@ const express = require('express');
 const fs = require('fs')
 const https = require('https')
 const cors = require('cors')
+require('dotenv').config()
 
+const db = require('./db/dbConnection')
+const routes = require('./indexRoutes')
+const { errorLogger, errorResponder, jsonValidationError} = require("./utils/middleware")
 
-const routes = require('./routes/indexRoutes')
-const { errorLogger, errorResponder, jsonValidationError} = require("./middleware")
 
 
 const privateKey  = fs.readFileSync('/Users/sitancisse/Desktop/CODE/Thesis/CP/cert/key.pem', 'utf8');
@@ -36,6 +38,7 @@ app.use(cors(({
 
 app.use('/ip', routes.ip)
 app.use('/fingerprint',routes.fingerprint)
+// app.use('/test', routes.testRouter)
 
 app.use(jsonValidationError)
 app.use(errorLogger)
@@ -54,19 +57,13 @@ app.use((req,res,next) => {
 	next()
 })
 
-// app.get('/', (req,res) => {
-// 	console.log(`requested url :${req.url} \n request headers host: ${req.headers.host}`)
-// 	res.send('<h1>Hello from backend </h1>')
-// })
-
-// const errorHandling = err => {
-// 	if(err){
-// 		console.log(err)
-// 		process.exit()
-// 	}
-// }
-
-// db.connectToDB(errorHandling)
+db.connect(error => {
+	if(error){
+		console.log("errror is db")
+		console.log(error)
+		// process.exit(1)
+	}
+})
 
 
 app.listen(PORT, () => {

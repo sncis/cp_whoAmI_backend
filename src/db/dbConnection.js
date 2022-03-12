@@ -1,26 +1,33 @@
 const { MongoClient } = require('mongodb')
+const DatabaseError = require('../utils/error')
 
-const connectionString = "mongodb+srv://sitanDev:gigolo87@whoami.t0f8g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
-module.exports = {
-	getClient: async() => {
-		const client = new MongoClient(connectionString, { useNewUrlParser: true, useUnifiedTopology: true })
-		await client.connect()
-		return client
-	},
+const ATLAS_URI = process.env.ATLAS_URI
+// const connectionString = "mongodb+srv://sitanDev:gigolo87@whoami.t0f8g.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 
-	getCollection : (dbClient) => {
-		const database = dbClient.db('testData')
-		return database.collection('testCollection')
-	},
+let dataBase;
 
-	getDB : (db) => {
-		const client = getClient()
-		return client.db(db)
-	},
+console.log("Atlas uri ", ATLAS_URI)
 
-	closeConnection: (dbClient) => {
-		dbClient.close()
-	}
+const connect = () => new Promise((resolve, reject) => {
+		MongoClient.connect(ATLAS_URI, (err, client) => {
+			if(err){
+				console.log(err)
+				reject(new DatabaseError("Failed to connect to DataBase"))
+			}else{
+				dataBase = client.db(this.dbName)
+				resolve(client.db(this.dbName))
+			}
+		})
+	})
+	
+const get = () => {
+	if(!dataBase) throw new Error("No connection to DB")
+	return dataBase
 }
 
+
+module.exports={
+	connect,
+	get
+}

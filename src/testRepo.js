@@ -1,5 +1,5 @@
-const db = require('../db/dbConnection')
-const DatabaseError = require('../utils/error')
+const db = require('./db/dbConnection')
+const DatabaseError = require('./utils/error')
 
 const storeFingerprint = async(data) => {
 	const result = await db.get().collection('testCollection').insertOne(data)
@@ -30,3 +30,4 @@ module.exports = {
 	findEntries,
 	deleteEntries
 }
+

@@ -1,4 +1,4 @@
-const repo = require('./repository')
+const repo = require('./testRepo')
 
 const storeFingerprint = async(req,res,next) => {
 	try{
