@@ -8,9 +8,9 @@ const errorLogger = (error, req,res,next) => {
 
 const errorResponder = (error, req, res, next) => {
 	res.header('Content-Type', "application/json")
-	console.log(error)
-	res.status(error.statusCode || 500).send(error.message)
-	next(error)
+	console.log(error.message)
+	res.status(error.statusCode).send({error: error.message})
+	next()
 }
 
 const jsonValidationError = (error,req,res,next) => {
@@ -27,7 +27,6 @@ const jsonValidationError = (error,req,res,next) => {
 	console.log("******* json validation error *********")
 	console.log(error.validationErrors)
 
-	// res.header('Content-Type', "application/json")
 
 	res.status(400).json({errors: error.validationErrors});
 
