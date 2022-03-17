@@ -10,15 +10,15 @@ const { errorLogger, errorResponder, jsonValidationErrorResponder} = require("./
 
 
 
-const privateKey  = fs.readFileSync('/Users/sitancisse/Desktop/CODE/Thesis/CP/cert/key.pem', 'utf8');
-const privateCert  = fs.readFileSync('/Users/sitancisse/Desktop/CODE/Thesis/CP/cert/cert.pem', 'utf8');
+// const privateKey  = fs.readFileSync('/Users/sitancisse/Desktop/CODE/Thesis/CP/cert/key.pem', 'utf8');
+// const privateCert  = fs.readFileSync('/Users/sitancisse/Desktop/CODE/Thesis/CP/cert/cert.pem', 'utf8');
 
 
-const credentials = {key: privateKey, cert:privateCert}
+// const credentials = {key: privateKey, cert:privateCert}
 
 // curl -X POST -H "Content-Type:application/json" http://localhost:5000/infos -d '{"infos":{"data":{"id":1,"keyboad": "QWERTY"}}}'
 const app = express()
-const httpsServer = https.createServer(credentials,app)
+// const httpsServer = https.createServer(credentials,app)
 
 
 // const PORT = 5000
