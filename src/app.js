@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use(cors(({
-	origin: ["http://localhost:3000"],
+	origin: ["http://localhost:3000", 'https://cpwhoami.herokuapp.com/'],
 	credentials: true,
 	exposeHeaders:['Content-Length', 'X-Frame-Options', 'X-XSS-Protection','X-Content-Type-Options']
 })))
