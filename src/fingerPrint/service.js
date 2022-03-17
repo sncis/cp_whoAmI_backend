@@ -25,7 +25,6 @@ const deleteEntries = async(req,res,next) => {
 		res.status(200).json({data:{
 			deletedCount:entries.deletedCount}, 
 			message: `${entries.deletedCount} entries has been deleted`})
-			next()
 	}catch(error){
 		next(error)
 	}
@@ -38,7 +37,6 @@ const getAllDistinctFingerprints = async(req,res,next) =>{
 	console.log(entries)
 
 		res.status(200).json({data:entries})
-		next()
 
 	}catch(error){
 		next(error)

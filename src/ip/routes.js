@@ -36,21 +36,10 @@ ipRouter.get('/', async(req,res, next)=> {
 
 	
 		if(!resp.data){
-			// let error = new Error('Error in IP API response')
-			// error.statusCode = 204
-			// throw error
-			// res.header("Content-Type", 'application/json')
 			res.status(204).json({data:{}})
-			next()
-
 		}
-		// console.log('data from ip/routes')
-		// console.log(resp.data)
-		// res.header("Content-Type", 'application/json')
-		// console.log("logs from function")
-		// console.log(resp.data)
+	
 		res.status(200).json({data:resp.data})
-		next()
 
 	}catch(err){
 		console.log(err)
