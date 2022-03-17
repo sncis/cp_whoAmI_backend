@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "test": "jest",
     "start:dev": "nodemon src/app.js",
-    "start:prod": "node app.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",

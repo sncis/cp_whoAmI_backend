@@ -9,7 +9,7 @@ const errorLogger = (error, req,res,next) => {
 const errorResponder = (error, req, res, next) => {
 	res.header('Content-Type', "application/json")
 	// console.log(error.message)
-	res.status(error.statusCode).json({error: error.message})
+	res.status(error.statusCode).json({data:[],error: error.message})
 	next(error)
 }
 

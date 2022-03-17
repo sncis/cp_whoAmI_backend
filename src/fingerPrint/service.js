@@ -33,9 +33,6 @@ const deleteEntries = async(req,res,next) => {
 const getAllDistinctFingerprints = async(req,res,next) =>{
 	try{
 		const entries = await repo.getDistinctFingerprints()
-	console.log("entries")
-	console.log(entries)
-
 		res.status(200).json({data:entries})
 
 	}catch(error){
