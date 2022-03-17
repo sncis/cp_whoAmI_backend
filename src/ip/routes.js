@@ -2,7 +2,7 @@
 
 const express = require('express')
 const ipRouter = express.Router()
-
+const axios = require('axios')
 //used as dummy data
 const data= {
 	status: 'success',
@@ -21,25 +21,39 @@ const data= {
 	query: '46.128.226.84'
 }
 
-ipRouter.get('/', (req,res, next)=> {
+ipRouter.get('/', async(req,res, next)=> {
 	console.log("*************IP ROUTE *************")
 	let ip = req.headers['x-forwarded-for'] || req.ip || req.socket.remoteAddress
-
+// console.log(ip)
 	try {
 		/** un-comment when real API shoudl be called */
-		// let resp = http.get(`http://ip-api.com/json/${ip}`)
-		
-		let resp = {data: data}
-		
+		// let resp = await axios.get(`http://ip-api.com/json/${ip}`)
+		let resp = await axios.get(`http://ip-api.com/json/109.43.51.220`)
+
+		//for testing use real axios request because of body 
+		// let resp = {data: data}
+		// console.log(resp.data)
+
+	
 		if(!resp.data){
-			throw new Error('no response from Ip API')
+			// let error = new Error('Error in IP API response')
+			// error.statusCode = 204
+			// throw error
+			// res.header("Content-Type", 'application/json')
+			res.status(204).json({data:{}})
+			next()
+
 		}
 		// console.log('data from ip/routes')
 		// console.log(resp.data)
-		res.header("Content-Type", 'application/json')
-		res.status(200).json(resp.data)
+		// res.header("Content-Type", 'application/json')
+		// console.log("logs from function")
+		// console.log(resp.data)
+		res.status(200).json({data:resp.data})
+		next()
 
 	}catch(err){
+		console.log(err)
 		next(err)
 	}
 

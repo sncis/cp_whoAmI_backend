@@ -6,7 +6,7 @@ require('dotenv').config()
 
 const db = require('./db/dbConnection')
 const routes = require('./indexRoutes')
-const { errorLogger, errorResponder, jsonValidationError} = require("./utils/middleware")
+const { errorLogger, errorResponder, jsonValidationErrorResponder} = require("./utils/middleware")
 
 
 
@@ -25,7 +25,7 @@ const PORT = 5000
 const HTTPS_PORT= 5443
 
 
-app.use(express.json({limit:'800b',type: 'application/json'}))
+app.use(express.json({limit:'2000b',type: 'application/json'}))
 app.use(express.urlencoded({ extended: true }));
 
 
@@ -40,13 +40,15 @@ app.use('/ip', routes.ip)
 app.use('/fingerprint',routes.fingerprint)
 // app.use('/test', routes.testRouter)
 
-app.use(jsonValidationError)
+app.use(jsonValidationErrorResponder)
 app.use(errorLogger)
 app.use(errorResponder)
 
 app.use((req,res,next) => {
 	// res.header("Access-Control-Allow-Origin", "http://localhost:3000")
 	res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
+	res.header("Content-Type", 'application/json')
+
 	// res.header('Strict-Transport-Security', 'max-age=15552000')
 	// res.header('Content-Security-Policy',	"default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'")
 	// res.header("X-Frame-Options", "deny")
@@ -59,7 +61,7 @@ app.use((req,res,next) => {
 
 db.connect(error => {
 	if(error){
-		console.log("errror is db")
+		// console.log("errror is db")
 		console.log(error)
 		// process.exit(1)
 	}

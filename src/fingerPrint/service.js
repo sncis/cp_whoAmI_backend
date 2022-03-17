@@ -1,6 +1,7 @@
 const repo = require('./repository')
 
 const storeFingerprint = async(req,res,next) => {
+	console.log(req.headers)
 	try{
 		await repo.storeFingerprint(req.body)
 		res.status(201).json({data:'fingerprint stored succesfully'})
@@ -24,6 +25,21 @@ const deleteEntries = async(req,res,next) => {
 		res.status(200).json({data:{
 			deletedCount:entries.deletedCount}, 
 			message: `${entries.deletedCount} entries has been deleted`})
+			next()
+	}catch(error){
+		next(error)
+	}
+}
+
+const getAllDistinctFingerprints = async(req,res,next) =>{
+	try{
+		const entries = await repo.getDistinctFingerprints()
+	console.log("entries")
+	console.log(entries)
+
+		res.status(200).json({data:entries})
+		next()
+
 	}catch(error){
 		next(error)
 	}
@@ -32,5 +48,6 @@ const deleteEntries = async(req,res,next) => {
 module.exports = { 
 	storeFingerprint,
 	getLastVisits,
-	deleteEntries
+	deleteEntries,
+	getAllDistinctFingerprints
 }

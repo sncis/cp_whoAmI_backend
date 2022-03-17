@@ -9,6 +9,10 @@ const router = express.Router()
 
 router.get('/', service.getLastVisits)
 router.post('/', validate({ body: fingerPrintReqSchema}), service.storeFingerprint)
+
+// router.post('/', service.storeFingerprint)
 router.delete('/', service.deleteEntries)
+
+router.get('/all', service.getAllDistinctFingerprints)
 
 module.exports = router

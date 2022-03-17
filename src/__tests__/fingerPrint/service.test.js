@@ -34,8 +34,6 @@ describe("FingerprintService", () => {
 
 	beforeEach(() => {
 		jest.clearAllMocks()
-
-	
 	})
 
 	it('should storefingerprint', async() => {

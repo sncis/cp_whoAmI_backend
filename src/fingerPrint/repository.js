@@ -12,9 +12,11 @@ const storeFingerprint = async(data) => {
 }
 
 const findEntries = async(fingerprintID) => {
+	console.log("******FingrPrint ID")
+	console.log(fingerprintID)
 	return db.get().collection('testCollection').find({fingerPrint: Number(fingerprintID)}).toArray()
 		.catch((error) => {
-			console.log(error)
+			// console.log(error)
 			throw new DatabaseError(`Failed to find entries for fingerprint ${fingerprintID}`)
 		})
 }
@@ -26,8 +28,14 @@ const deleteEntries = async(fingerprintID) => {
 	})
 }
 
+const getDistinctFingerprints = async() => {
+	return db.get().collection('testCollection').distinct('fingerPrint')
+
+}
+
 module.exports = {
 	storeFingerprint,
 	findEntries,
-	deleteEntries
+	deleteEntries,
+	getDistinctFingerprints
 }
