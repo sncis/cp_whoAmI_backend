@@ -21,8 +21,8 @@ const app = express()
 const httpsServer = https.createServer(credentials,app)
 
 
-const PORT = 5000
-const HTTPS_PORT= 5443
+// const PORT = 5000
+// const HTTPS_PORT= 5443
 
 
 app.use(express.json({limit:'2000b',type: 'application/json'}))
@@ -68,8 +68,8 @@ db.connect(error => {
 })
 
 
-app.listen(PORT, () => {
-	console.log(`HTTP server started at port: ${PORT}`)
+app.listen(process.env.PORT, () => {
+	console.log(`HTTP server started at port: ${process.env.PORT}`)
 })
 
 // httpsServer.listen(HTTPS_PORT, () => {
