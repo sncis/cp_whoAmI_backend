@@ -8,26 +8,10 @@ const db = require('./db/dbConnection')
 const routes = require('./indexRoutes')
 const { errorLogger, errorResponder, jsonValidationErrorResponder} = require("./utils/middleware")
 
-
-
-// const privateKey  = fs.readFileSync('/Users/sitancisse/Desktop/CODE/Thesis/CP/cert/key.pem', 'utf8');
-// const privateCert  = fs.readFileSync('/Users/sitancisse/Desktop/CODE/Thesis/CP/cert/cert.pem', 'utf8');
-
-
-// const credentials = {key: privateKey, cert:privateCert}
-
-// curl -X POST -H "Content-Type:application/json" http://localhost:5000/infos -d '{"infos":{"data":{"id":1,"keyboad": "QWERTY"}}}'
 const app = express()
-// const httpsServer = https.createServer(credentials,app)
-
-
-// const PORT = 5000
-// const HTTPS_PORT= 5443
-
 
 app.use(express.json({limit:'2000b',type: 'application/json'}))
 app.use(express.urlencoded({ extended: true }));
-
 
 
 app.use(cors(({
@@ -38,7 +22,6 @@ app.use(cors(({
 
 app.use('/ip', routes.ip)
 app.use('/fingerprint',routes.fingerprint)
-// app.use('/test', routes.testRouter)
 
 app.use(jsonValidationErrorResponder)
 app.use(errorLogger)
@@ -61,9 +44,7 @@ app.use((req,res,next) => {
 
 db.connect(error => {
 	if(error){
-		// console.log("errror is db")
 		console.log(error)
-		// process.exit(1)
 	}
 })
 
@@ -71,8 +52,3 @@ db.connect(error => {
 app.listen(process.env.PORT, () => {
 	console.log(`HTTP server started at port: ${process.env.PORT}`)
 })
-
-// httpsServer.listen(HTTPS_PORT, () => {
-// 	console.log(`HTTPS Server started at port: ${HTTPS_PORT}` )
-// })
-

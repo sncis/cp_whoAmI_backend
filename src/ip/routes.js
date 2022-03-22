@@ -3,6 +3,7 @@
 const express = require('express')
 const ipRouter = express.Router()
 const axios = require('axios')
+const {ipValidator}  = require('../utils/validators')
 //used as dummy data
 const data= {
 	status: 'success',
@@ -22,30 +23,37 @@ const data= {
 }
 
 ipRouter.get('/', async(req,res, next)=> {
-	console.log("*************IP ROUTE *************")
+	// console.log("*************IP ROUTE *************")
 	let ip = req.headers['x-forwarded-for'] || req.ip || req.socket.remoteAddress
-// console.log(ip)
-	try {
-		/** un-comment when real API shoudl be called */
-		// let resp = await axios.get(`http://ip-api.com/json/${ip}`)
-		let resp = await axios.get(`http://ip-api.com/json/109.43.51.220`)
+	let valid = ipValidator(ip)
+	// let valid = true
 
-		//for testing use real axios request because of body 
-		// let resp = {data: data}
-		// console.log(resp.data)
+	// console.log(ip, valid)
+	if(valid){
+		try {
+			/** un-comment when real API shoudl be called */
+			// let resp = await axios.get(`http://ip-api.com/json/${ip}`)
+			let resp = await axios.get(`http://ip-api.com/json/109.43.51.220`)
 
-	
-		if(!resp.data){
-			res.status(204).json({data:{}})
+			//for testing use real axios request because of body 
+			// let resp = {data: data}
+			// console.log(resp.data)
+
+		
+			if(!resp.data){
+				res.status(204).json({data:{}})
+				return next()
+			}
+		
+			res.status(200).json({data:resp.data})
+
+		}catch(err){
+			console.log(err)
+			next(err)
 		}
-	
-		res.status(200).json({data:resp.data})
-
-	}catch(err){
-		console.log(err)
-		next(err)
+	}else{
+		res.status(400).json({data:[]}) 
 	}
-
 })
 
 

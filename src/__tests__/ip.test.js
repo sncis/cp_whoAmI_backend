@@ -30,10 +30,10 @@ describe('IP routes', () => {
 	beforeEach(() => {
 		jest.clearAllMocks()
 	})
-	it('should return Ip information deom external API when GET request', async() => {
+	it('should return Ip information from external API when GET request', async() => {
 		 axios.get.mockImplementationOnce(() => Promise.resolve({data:infos}))
 	
-		const {body} = await request(app).get('/ip')
+		const {body} = await request(app).get('/ip').set('x-forwarded-for', '109.43.51.220')
 
 		expect(axios.get).toHaveBeenCalled()
 		expect(body.data).toEqual(infos)
@@ -42,7 +42,7 @@ describe('IP routes', () => {
 	it('should throw error when no resp.body', async() => {
 		axios.get.mockImplementationOnce(() => Promise.resolve({}))
 
-		const resp = await request(app).get('/ip')
+		const resp = await request(app).get('/ip').set('x-forwarded-for', '109.43.51.220')
 		console.log(resp.body)
 		expect(resp.body).toEqual({})
 		expect(resp.statusCode).toEqual(204)

@@ -1,10 +1,11 @@
 const idValidator = (id) => {
-	const regex = '^[\\d*\-\]+$'
+	const regex = '^[\-\\\d*]+$'
 	return !id ? false : !!id.match(regex)
 }
 
 const ipValidator =(ip) => {
-	const regex = '^([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,2})$'
+	console.log('ip valid caled')
+	const regex = '^([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,3})\\.([0-9]{1,3})$'
 	return !ip ? false : !!ip.match(regex)
 }
 

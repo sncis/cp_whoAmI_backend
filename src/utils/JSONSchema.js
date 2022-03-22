@@ -5,7 +5,7 @@ exports.fingerPrintReqSchema = {
 	properties:{
 		"fingerPrint":{
 			type:"number",
-			minLength:5
+			minLength:1
 		},
 		"visited":{
 			type:"string",
@@ -17,25 +17,25 @@ exports.fingerPrintReqSchema = {
 		},
 		"vendor":{
 			type:'string',
-			minLength:3
+			minLength: 3
 		},
 		"language":{
 			type: "string",
 			minLength:2
 		},
 		"languages":{
-			type:[ "object", 'array'],
-			minLength:2
+			type:['string', 'array'],
+			minLength:1
 		},
 		"platform":{
-			type: ["string",'array'],
+			type: ["string",'array', 'object'],
 			minLength:1
 		},
 		"deviceMemory":{
 			type: "number",
 			minLength:1
 		},
-		"availableCPU":{
+		"cpu":{
 			type: "number",
 			minLength:1
 		},
@@ -45,7 +45,7 @@ exports.fingerPrintReqSchema = {
 		},
 		"plugins":{
 			type: ['string', 'array'],
-			minLength:2
+			minLength:1
 		},
 		"keyboardLayout":{
 			type: "string",
@@ -63,10 +63,6 @@ exports.fingerPrintReqSchema = {
 			type: "string",
 			minLength:3
 		},
-		"browserZoomLevel":{
-			type: "number",
-			minLength:1
-		},
 		"touchscreen":{
 			type: "boolean",
 			minLength:4
@@ -77,15 +73,15 @@ exports.fingerPrintReqSchema = {
 		},
 		"PDFViewerEnabled":{
 			type: "boolean",
-			minLength:2
+			minLength:4
 		},
 		"cookiesEnabled":{
 			type: "boolean",
-			minLength:2
+			minLength:4
 		},
 		"screenResolution":{
 			type: "object",
-			minLength:10
+			minLength:2
 		}
 	}
 }
