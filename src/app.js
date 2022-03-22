@@ -15,14 +15,14 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use(cors({
-	origin: ["http://localhost:3000", 'https://cpwhoami.herokuapp.com'],
+	origin: ["http://localhost:3000", 'https://cpwhoami.herokuapp.com', "https://git.heroku.com/api-whoami.git https://git.heroku.com/cpwhoami.git"],
 	credentials: true,
 	exposeHeaders:['Content-Length', 'X-Frame-Options', 'X-XSS-Protection','X-Content-Type-Options']
 }))
 
 
 app.use((req,res,next) => {
-	res.set("Access-Control-Allow-Origin", "http://localhost:3000 https://cpwhoami.herokuapp.com")
+	res.set("Access-Control-Allow-Origin", "http://localhost:3000 https://cpwhoami.herokuapp.com https://git.heroku.com/api-whoami.git https://git.heroku.com/cpwhoami.git")
 	res.set("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
 	res.set("Content-Type", 'application/json')
 	res.set('Strict-Transport-Security', 'max-age=15552000')
