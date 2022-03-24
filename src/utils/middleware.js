@@ -20,7 +20,7 @@ const jsonValidationErrorResponder = (error,req,res,next) => {
 		next(error);
 	}
 	res.status(400).json({error: error.validationErrors});
-	// next(error)
+	
 }
 
 

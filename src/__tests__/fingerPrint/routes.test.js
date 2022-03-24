@@ -45,13 +45,6 @@ const mockEntries = [{visited:"2022-02-03T14:29:12.322Z",
 	fingerPrint:-1041013258}
 ]
 
-	// const mockFingerprintData = {
-	// 	"Connection Type": '4g',
-	// 	"Vendor": 'Apple',
-	// 	"Language": 'en-US',
-	// 	"fingerPrint":12345456,
-	// 	"visited":"2022-02-11T14:29:12.322Z"
-	// }
 const mockFingerprintData = {
 	"Connection Type": '4g',
 	"Vendor": "Apple Inc",
@@ -94,14 +87,6 @@ describe('Fingerprint routes', () => {
 		await request(app).get('/?id=1234').expect(500)
 	})
 
-//JSON validation Error 
-	// it('POST should store fingerprint', async() => {
-	// 	mockInsertOne = () => Promise.resolve({insertedId:12345678})
-
-	// 	const body = await request(app).post('/').set('Content-type', 'application/json').send(mockFingerprintData)
-	// 	console.log(body)
-
-	// })
 
 	it('should delete entries', async() => {
 		mockDelete = () => Promise.resolve({deletedCount:1})

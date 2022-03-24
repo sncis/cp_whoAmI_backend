@@ -16,8 +16,6 @@ describe('IpValidator', () => {
 	it('should return false for invalid ip', () => {
 		expect(validators.ipValidator('123.45.')).toBeFalsy()
 	})
-	// it('should return false for invalid ip', () => {
-	// 	expect(validators.ipValidator('1.4.0.00')).toBeFalsy()
-	// })
+	
 
 })
