@@ -10,7 +10,7 @@ const { errorLogger, errorResponder, jsonValidationErrorResponder} = require("./
 
 const app = express()
 
-app.use(express.json({limit:'2000b',type: 'application/json'}))
+app.use(express.json({limit:'3500b',type: 'application/json'}))
 app.use(express.urlencoded({ extended: true }));
 
 
