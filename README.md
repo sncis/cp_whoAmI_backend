@@ -1,13 +1,14 @@
 # Who Am I ? - Backend -
 
 This project is the backend for my capstone project, which can be found [here](https://github.com/sncis/cp_whoAmI).\
-The project aims to present the topic of privacy in a creative way. \
-You can view the live version of the project [here](https://cpwhoami.herokuapp.com/).\ The website shows visitors what information a website can collect about them without using cookies, trackers or other additional technologies. It only collects data from various browser functions. 
+The project aims to present the topic of privacy in a creative way.\
+You can view the live version of the project [here](https://cpwhoami.herokuapp.com/).\ 
+The website shows visitors what information a website can collect about them without using cookies, trackers or other additional technologies. It only collects data from various browser functions. 
 Supported browsers are Chrome, Safari and Firefox. It may or may not work in all other browsers.\ 
 The animation was created with [p5js](https://p5js.org/) and is integrated with a React component.\
 
 The backend is connected to a MongoDB cloud database.\ 
-To change the database URI, create an .env file and place your uri string there as : \
+To change the database URI, create an .env file and place your uri string there as :\
 `ATLAS_URI="Your-uri-string"`
 
 
