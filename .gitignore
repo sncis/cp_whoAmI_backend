@@ -1,3 +1,7 @@
+
+# dependencies
+node_modules/
+
+# misc
 .env
-/node_modules
-config.env
+/src/config.env
